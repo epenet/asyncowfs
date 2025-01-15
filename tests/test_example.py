@@ -85,7 +85,7 @@ async def test_send_idle(mock_clock):
 
 async def test_missing_event():
     e1 = EventChecker([ServerRegistered, ServerConnected, ServerDisconnected])
-    with pytest.raises((RuntimeError, ExceptionGroup)) as r, ungroup:
+    with pytest.raises((RuntimeError, ExceptionGroup)) as r, ungroup:  # pylint: disable=confusing-with-statement,misplaced-bare-raise
         async with server(events=e1):  # as ow:
             await trio.sleep(0)
 
@@ -95,7 +95,7 @@ async def test_missing_event():
         elif isinstance(e, anyio.ClosedResourceError):
             pass
         else:
-            raise
+            raise  # pylint: disable=misplaced-bare-raise
 
 
 async def test_more_event():
@@ -108,7 +108,7 @@ async def test_more_event():
             ServerDeregistered,
         ]
     )
-    with pytest.raises(RuntimeError) as r, ungroup:
+    with pytest.raises(RuntimeError) as r, ungroup:  # pylint: disable=confusing-with-statement
         async with server(events=e1):  # as ow:
             await trio.sleep(0)
     assert "Superfluous event " in r.value.args[0]
@@ -127,7 +127,7 @@ async def test_bad_event():
         elif isinstance(e, anyio.ClosedResourceError):
             pass
         else:
-            raise
+            raise  # pylint: disable=misplaced-bare-raise
 
 
 async def test_basic_server():
@@ -274,7 +274,7 @@ async def test_wrong_bus():
         elif isinstance(e, anyio.ClosedResourceError):
             pass
         else:
-            raise
+            raise  # pylint: disable=misplaced-bare-raise
 
 
 async def test_slow_server(mock_clock):

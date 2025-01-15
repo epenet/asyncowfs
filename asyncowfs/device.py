@@ -683,7 +683,7 @@ class VoltageDevice(Device):
         yield "voltage"
         yield "alarm"
 
-    async def poll_voltage(self, simul=False):
+    async def poll_voltage(self, simul=False):  # pylint: disable=unused-argument
         v = await self.volt_all
         await self.service.push_event(DeviceValue(self, "volt_all", v))
 

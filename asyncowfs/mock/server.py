@@ -200,7 +200,7 @@ class EventChecker:
                         break
                     logger.debug("Event %s", e)
                     self.check_next(e)
-        except RuntimeError:
+        except RuntimeError:  # pylint: disable=try-except-raise
             raise
         else:
             self.check_last()
